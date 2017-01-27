@@ -1,0 +1,25 @@
+.items {
+    height: auto;
+    overflow: hidden;
+    overflow: auto;
+}
+
+.item {
+    cursor:pointer;
+    position: relative;
+    display:inline-block;
+    float:left;
+    margin: 0.5rem;
+    border: 1px solid black;
+}
+
+.item > * {
+    max-width:100%;
+}
+
+.item-title {
+  font-size: 1rem;
+  display: block;
+  color: black;
+  color: black;
+}
