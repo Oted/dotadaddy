@@ -12,8 +12,8 @@ class App extends Component {
     componentDidMount() {
         this.props.dispatch({
             type: 'fetch_steam_profile',
-            id: "76561197997210702"
-            // id: "76561197966246976"
+            // id: "76561197997210702"
+            id: "76561197966246976"
             // id: "76561197960363179"
         });
     }
@@ -45,14 +45,7 @@ class App extends Component {
                             matches={this.props.filtered || []}
                             profile={this.props.profile}
                         />
-                        <BottomBar
-                            dispatch={this.props.dispatch}
-                            matches={this.props.matches.matches || []}
-                            filtered={this.props.filtered || []}
-                            filters={this.props.filters || null}
-                            profile={this.props.profile}
-                        />
-                    </div>
+                   </div>
                 }
           </div>
         );

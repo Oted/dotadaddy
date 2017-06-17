@@ -1,0 +1,42 @@
+{
+    "-1" : {
+        "id" : -1,
+        "name" : "Invalid"
+    },
+    "0" : {
+        "id" : 0,
+        "name" : "Public matchmaking"
+    },
+    "1" : {
+        "id" : 1,
+        "name" : "Practice"
+    },
+    "2" : {
+        "id" : 2,
+        "name" : "Tournament"
+    },
+    "3" : {
+        "id" : 3,
+        "name" : "Tutorial"
+    },
+    "4" : {
+        "id" : 4,
+        "name" : "Co-op with bots"
+    },
+    "5" : {
+        "id" : 5,
+        "name" : "Team match"
+    },
+    "6" : {
+        "id" : 6,
+        "name" : "Solo Queue"
+    },
+    "7" : {
+        "id" : 7,
+        "name" : "Ranked"
+    },
+    "8" : {
+        "id" : 8,
+        "name" : "Solo Mid 1vs1"
+    }
+}

@@ -16,7 +16,9 @@ const initialState = {
         'win' : 0,
         'loss' : 0
     },
-    'filters' : {}
+    'filters' : {
+        'lobby_types' : [7]
+    }
 };
 
 const stateUpdate$ = Observable.merge(
@@ -48,7 +50,9 @@ const stateUpdate$ = Observable.merge(
                 min:data.matches[data.matches.length - 1].start_time * 1000
             })
         },
-        filtered:data.matches
+        filtered : data.matches.filter((m) => {
+            return state.filters.lobby_types.indexOf(m.lobby_type) > -1;
+        })
     })),
     handleAction('set_modal_data')
     .map(data => state => ({

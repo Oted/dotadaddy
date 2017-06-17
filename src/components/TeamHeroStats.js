@@ -28,6 +28,16 @@ class TeamHeroStats extends Component {
         });
     }
 
+    _openHeroDetails(hero_id) {
+        return this.props.dispatch({
+            'type' : 'set_modal_data',
+            'data' : {
+                type : 'hero_details',
+                hero_id
+            }
+        })
+    }
+
     render() {
         const ma = this.props.matches;
         let self = {
@@ -100,7 +110,7 @@ class TeamHeroStats extends Component {
                     return (
                         <div key={'team-' + h_id} className="hero">
                             <img alt={Heroes[h_id].localized_name} src={Heroes[h_id].img}/>
-                            <span> {Heroes[h_id].localized_name} </span>
+                            <span onClick={this._openHeroDetails.bind(this, h_id)} className='hero-stats sort-target'> {Heroes[h_id].localized_name} </span>
                             <span> {self.in_team[h_id] || 0} </span>
                             <span> {((self.won_with_rate[h_id] || 0) * 100).toFixed(2) + '%'} </span>
                             <span> {((self.lost_with_rate[h_id] || 0) * 100).toFixed(2) + '%'} </span>

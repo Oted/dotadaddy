@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../css/index.css';
 import Heroes from '../heroes.json';
 import Matches from './Matches';
-import ItemList from './ItemList';
+// import ItemList from './ItemList';
 import * as Utils from '../utils/utils';
 
 class HeroDetails extends Component {
@@ -128,11 +128,6 @@ class HeroDetails extends Component {
                         {'played with ' + self.in_team.length + ' times'}
                     </span> : <span> {'in team ' + self.in_team.length + ' times'} </span>}
                 </div>
-                <ItemList
-                    dispatch={this.props.dispatch}
-                    hero_id={h_id}
-                    matches={ma}
-                />
                 <Matches
                     dispatch={this.props.dispatch}
                     matches={ma}

@@ -60,10 +60,41 @@ server.route({
                 return reply('No such user').code(404);
             }
 
-            return reply(body.result).code(200);
+            return getAdditionalMatches(request.query.account_id, body, 2, (err, additional_body) => {
+                return reply(additional_body.result || body.result).code(200);
+            })
         });
     }
 });
+
+const getAdditionalMatches = (account_id, body, count, next) => {
+    console.log('getting aditional with count ' + count, 'matches length ' + body.result.matches.length);
+    if (!count) {
+        return next(null, body);
+    }
+
+    const last = body.result.matches[body.result.matches.length - 1].match_id;
+
+    return Request({
+        'uri' : 'https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=' + process.env.STEAM_KEY + '&account_id=' + account_id + '&start_at_match_id=' + last
+    }, (err, res) => {
+        if (err) {
+            console.log('err', err);
+            return getAdditionalMatches(account_id, body, 0, next.bind(null, err));
+        }
+
+        const new_body = JSON.parse(res.body);
+
+        if (!new_body || !new_body.result) {
+            return reply('No such user').code(404);
+        }
+
+        //merge the results
+        body.result.matches = [...body.result.matches, ...new_body.result.matches];
+
+        return getAdditionalMatches(account_id, body, --count, next);
+    });
+}
 
 server.route({
     method: 'GET',
