@@ -12,6 +12,8 @@ const initialState = {
   'matches' : {},
   'filtered' : [],
   'modal_data' : {},
+  'team_count' : {},
+  'friend_ids' : {},
   'friends' : {},
   'stats' : {
     'win' : 0,
@@ -34,10 +36,31 @@ const stateUpdate$ = Observable.merge(
   .switchMap(act => {
     return Api.getSteamProfile(act.id);
   })
-  .map(data => state => ({
-    ...state,
-    profile: Object.assign({}, {'account_id' : Utils.convert(data.steamid)}, data)
-  })),
+  .map(data => state => {
+    return Object.assign({},
+      initialState,
+      {
+        profile: Object.assign({}, {'account_id' : Utils.convert(data.steamid)}, data)
+      }
+    );
+  }),
+  handleAction('get_friend_profile')
+  .mergeMap(act => {
+    return Api.getSteamProfile(Utils.inverse(act.id));
+  })
+  .map(data => state => {
+    if (!data) {
+      return {...state};
+    }
+
+    const transform = Utils.convert(data.steamid);
+    let obj = {};
+    obj[transform] = Object.assign({}, {'account_id' : transform}, data);
+    return {
+      ...state,
+      friends: Object.assign({}, obj, state.friends)
+    };
+  }),
   handleAction('get_match_history')
   .switchMap(act => {
     return Api.getMatchHistory(act.id);
@@ -65,7 +88,7 @@ const stateUpdate$ = Observable.merge(
     return Api.getMatchDetails(act.id);
   })
   .map(data => state => {
-    let newFriends = Object.assign({}, state.friends);
+    let newTeamCount = Object.assign({}, state.team_count);
     const newMatches = state.matches.matches.reduce((arr, m) => {
       if (m.match_id === data.match_id) {
         m.player_in_game = Utils.findPlayerInGame(state.profile.account_id, data);
@@ -86,7 +109,7 @@ const stateUpdate$ = Observable.merge(
 
           if (p.player_slot.toString().length === m.player_in_game.player_slot.toString().length) {
             m.teammates.push(p);
-            newFriends[p.account_id] = newFriends[p.account_id] ? newFriends[p.account_id] + 1 : 1;
+            newTeamCount[p.account_id] = newTeamCount[p.account_id] ? newTeamCount[p.account_id] + 1 : 1;
           } else {
             m.opponents.push(p);
           }
@@ -102,7 +125,12 @@ const stateUpdate$ = Observable.merge(
     return {
       ...state,
       matches: Object.assign({}, state.matches, {'matches' : newMatches}),
-      friends: newFriends
+      team_count: newTeamCount,
+      friend_ids : Object.assign({}, Object.keys(newTeamCount).reduce((obj, key) => {
+        const target = {};
+        target[key] = newTeamCount[key];
+        return newTeamCount[key] < 4 ? obj : Object.assign({}, obj, target)
+      },{}))
     }
   })
 );
@@ -114,12 +142,11 @@ const appState$ = Observable
     return patch(state)
   });
 
-appState$.subscribe(state => {
-  ReactDOM.render(
-    <App {...state} dispatch={dispatch} />,
-    document.getElementById('root')
-  );
-}, error => {
-  console.log('ERRR', error);
-  throw error;
-});
+appState$.subscribe(
+  (state) => {
+    return ReactDOM.render(<App {...state} dispatch={dispatch} />,document.getElementById('root'));
+  },
+  (error) => {
+    console.log('ERRR', error);
+  }
+)

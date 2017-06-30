@@ -9,6 +9,7 @@
     "async": "^2.1.4",
     "bignumber.js": "^3.0.1",
     "hapi": "^16.0.1",
+    "inert": "^4.2.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-input-range": "^0.9.3",

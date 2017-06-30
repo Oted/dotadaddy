@@ -128,7 +128,7 @@ class HeroDetails extends Component {
           </span> : <span> {'in team ' + self.in_team.length + ' times'} </span>}
         </div>
         <Matches
-          dispatch={this.props.dispatch}
+          dispatch={() => {console.log('tried to dispatch', arguments)}}
           matches={ma}
         />
       </div>

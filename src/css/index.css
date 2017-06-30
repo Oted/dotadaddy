@@ -7,12 +7,28 @@ body {
 }
 
 .fetch-steam-id {
-  margin-top:10rem;
+  margin:2rem;
   text-align: center;
 }
 
 .fetch-steam-id > span {
   display:block;
+}
+
+.intro {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1rem;
+}
+
+.intro > img {
+  margin-bottom:1rem;
+}
+
+.intro > span {
+  display:block;
+  margin-top:1rem;
+  margin-bottom:0.5rem;
 }
 
 .fetch-steam-id > input {
@@ -35,28 +51,67 @@ body {
   position: absolute;
   width: 4rem;
   top: 2rem;
-  left: -1.5rem;
-  z-index: 200;
+  left: -1rem;
+  z-index: 10;
   display:inline-block;
   float:left;
   width:4rem;
-  text-align:center;
+  text-align:left;
+}
+
+.online-border {
+  border: lime;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.offline-border {
+  border: red;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .friend-container > span {
   display:block;
 }
 
+.loading-bar {
+  height: 0.25rem;
+  position: absolute;
+  background: gray;
+  top: 0;
+  left: 0;
+}
+
 .friend-image {
   height:3rem;
   width:3rem;
-  margin:5px;
+  margin-top:1rem;
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 
+.friend-image > img {
+  width: 90%;
+}
+
+.friend-image > span {
+  position: absolute;
+  display:none;
+  bottom:-1rem;
+  left:1rem;
+}
+
 .friend-image:hover {
   padding-left:1.5rem;
+}
+
+.friend-image:hover > span {
+  display:block;
+}
+
+.friend-image:hover > img {
+  width:100%;
 }
 
 .profile {
@@ -332,4 +387,18 @@ body {
   background:rgba(255, 255, 255, 0.96);
   width:100%;
   border-top: 1px solid #b1b8bd;
+}
+
+.landing {
+  text-align:center;
+}
+
+.landing .top {
+  width: 100%;
+  background:#04090c;
+}
+
+
+.landing .top > img {
+  width:60%;
 }

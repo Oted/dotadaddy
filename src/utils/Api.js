@@ -1,6 +1,5 @@
 import {Observable} from 'rxjs';
 
-
 export function getFriends(ids) {
   return Observable.fromPromise(
     fetch('http://localhost:8000/getFriends?steamids=' + ids.join(',')).then(res=> {
@@ -11,10 +10,18 @@ export function getFriends(ids) {
 
 export function getSteamProfile(id) {
   return Observable.fromPromise(
-    fetch('http://localhost:8000/getProfile?steamid=' + id).then(res=> {
+    fetch('http://localhost:8000/getProfile?steamid=' + id)
+    .then(function(res) {
+      if (!res.ok) {
+        throw new Error('no such profile');
+      }
+
       return res.json();
     })
-  );
+  ).catch((err) => {
+    console.log('could not fetch', err);
+    return Observable.empty();
+  })
 }
 
 //http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1/\?key\=DBD3ABFFBC9911FF9CBB843ADF903083\&account_id\=4294967295

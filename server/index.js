@@ -3,17 +3,36 @@
 const Hapi = require('hapi');
 const Request = require('request');
 const Async = require('async');
+const Path = require('path');
+const Inert = require('inert');
 
 //temp
 process.env.STEAM_KEY = 'DBD3ABFFBC9911FF9CBB843ADF903083';
 
 // Create a server with a host and port
 const server = new Hapi.Server();
+server.register(Inert, () => {});
+
 server.connection({
   host: 'localhost',
   port: 8000,
   routes: {
+    files: {
+      relativeTo: Path.join(__dirname, '../public')
+    },
     cors: true
+  }
+});
+
+server.route({
+  method: 'GET',
+  path: '/public/{param*}',
+  handler: {
+    directory: {
+      path: ['public'],
+      listing: true,
+      index: ['index.html']
+    }
   }
 });
 
@@ -41,29 +60,6 @@ server.route({
 
 server.route({
   method: 'GET',
-  path:'/getFriends',
-  handler: function (request, reply) {
-    console.log('getFriends', request.query.steamids);
-    // return Request({
-      // 'uri' : 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + process.env.STEAM_KEY + '&steamids=' + request.query.steamid
-    // }, (err, res) => {
-      // if (err) {
-        // return reply(err.message).code(404);
-      // }
-
-      // const body = JSON.parse(res.body);
-
-      // if (!body || !body.response || !body.response.players.length) {
-        // return reply('No such user').code(404);
-      // }
-
-      // return reply(body.response.players[0]).code(200);
-    // });
-  }
-});
-
-server.route({
-  method: 'GET',
   path:'/getMatchHistory',
   handler: function (request, reply) {
     if (!request.query.account_id) {
@@ -83,7 +79,7 @@ server.route({
         return reply('No such user').code(404);
       }
 
-      return getAdditionalMatches(request.query.account_id, body, 2, (err, additional_body) => {
+      return getAdditionalMatches(request.query.account_id, body, 1, (err, additional_body) => {
         return reply(additional_body.result || body.result).code(200);
       })
     });
