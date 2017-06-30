@@ -29,14 +29,14 @@ class SteamId extends Component {
           <img src="http://cdn.gamer-network.net/2013/usgamer/dota2header.jpg"/>
         </div>
         <h2> Welcome to Dotadaddy </h2>
-        <span> Dotadaddy is a tool to aid players and their team towards improved gameplay </span>
-        <span> It does this by anayzing your recent batch of games and shows yor weaknesses and strengths, both as a team and in solo. </span>
-        <span> Only ranked matches, both solo and party are included in the analyzys. </span>
-        <span> Dotadaddy is still in beta, suggestions of improvements is greatly appreshiated </span>
+        <span> Dotadaddy is a tool to aid players and their team towards improved gameplay. </span>
+        <span> It does this by analyzing your recent batch of games and shows your weaknesses and strengths, both as a team and solo. </span>
+        <span> Only ranked matches, both solo and party, are included in the analysis. </span>
+        <span> Dotadaddy is still in beta, any suggestions for improvement are greatly appreciated! </span>
         <div className='intro'>
           <h2> Get started! </h2>
           <span> In order to use this app you have to enable "Expose Public Match Data" setting in the Dota 2 game client. </span>
-          <img src="https://preview.ibb.co/jZ6bxk/share_history_en.png" border="0"/>
+          <img src="https://preview.ibb.co/cGJgxk/IMG_1544.jpg" border="0"/>
           <span>  Your steam profile also has to be set to public. </span>
           <img src="http://preview.ibb.co/hQ4bdQ/dota_profile.png" alt="dota_profile" border="0"/>
           <span> Once your data is available, please locate your steam id in the steam client  and fill it in below </span>
