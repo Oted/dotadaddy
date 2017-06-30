@@ -2,7 +2,7 @@ import {Observable} from 'rxjs';
 
 export function getFriends(ids) {
   return Observable.fromPromise(
-    fetch('http://localhost:8000/getFriends?steamids=' + ids.join(',')).then(res=> {
+    fetch('/getFriends?steamids=' + ids.join(',')).then(res=> {
       return res.json();
     })
   );
@@ -10,7 +10,7 @@ export function getFriends(ids) {
 
 export function getSteamProfile(id) {
   return Observable.fromPromise(
-    fetch('http://localhost:8000/getProfile?steamid=' + id)
+    fetch('/getProfile?steamid=' + id)
     .then(function(res) {
       if (!res.ok) {
         throw new Error('no such profile');
@@ -27,7 +27,7 @@ export function getSteamProfile(id) {
 //http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1/\?key\=DBD3ABFFBC9911FF9CBB843ADF903083\&account_id\=4294967295
 export function getMatchHistory(id) {
   return Observable.fromPromise(
-    fetch('http://localhost:8000/getMatchHistory?account_id=' + id).then(res => {
+    fetch('/getMatchHistory?account_id=' + id).then(res => {
       return res.json();
     })
   );
@@ -36,7 +36,7 @@ export function getMatchHistory(id) {
 export function getMatchDetails(id) {
   return Observable.defer(() => {
     return Observable.fromPromise(
-      fetch('http://localhost:8000/getMatchDetails?match_id=' + id).then(res => {
+      fetch('/getMatchDetails?match_id=' + id).then(res => {
         return res.json();
       })
     )
