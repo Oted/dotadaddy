@@ -18,7 +18,7 @@ body {
 .intro {
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 1rem;
+  margin-top: 5rem;
 }
 
 .intro > img {
@@ -339,7 +339,7 @@ body {
 .modal-hidden {
   padding:0 !important;
   border-width: 0px;
-  right:-80%;
+  right:-110%;
 }
 
 .modal-show {
@@ -389,7 +389,8 @@ body {
   border-top: 1px solid #b1b8bd;
 }
 
-.landing {
+.landing > span {
+  display: block;
   text-align:center;
 }
 

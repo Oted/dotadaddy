@@ -4,12 +4,6 @@ import * as Utils from '../utils/utils';
 import Friend from './Friend';
 
 class Friends extends Component {
-  constructor() {
-    super();
-
-    this.state = {};
-  }
-
   render() {
     return (
       <div className="friend-container">

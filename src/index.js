@@ -34,13 +34,27 @@ const stateUpdate$ = Observable.merge(
   })),
   handleAction('fetch_steam_profile')
   .switchMap(act => {
-    return Api.getSteamProfile(act.id);
+    return Observable.zip(
+      Api.getSteamProfile(act.id),
+      Observable.of(act),
+      (res,act) => {
+        return {
+          res,
+          act
+        }
+      }
+    );
   })
   .map(data => state => {
+    console.log(data);
+    if (data && data.res.steamid && data.act.caller === 'initial') {
+      localStorage.setItem("steamid", data.res.steamid);
+    }
+
     return Object.assign({},
       initialState,
       {
-        profile: Object.assign({}, {'account_id' : Utils.convert(data.steamid)}, data)
+        profile: Object.assign({}, {'account_id' : Utils.convert(data.res.steamid)}, data.res)
       }
     );
   }),

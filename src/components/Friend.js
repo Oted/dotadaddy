@@ -3,10 +3,6 @@ import '../css/index.css';
 import * as Utils from '../utils/utils';
 
 class Friend extends Component {
-  constructor() {
-    super();
-  }
-
   _clickFriend(id) {
     this.props.dispatch({
       type: 'fetch_steam_profile',

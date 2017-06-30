@@ -12,11 +12,12 @@ import BottomBar from './components/BottomBar';
 
 class App extends Component {
   componentDidMount() {
-    let id = localStorage.getItem("steamid");
-    if (id) {
+    this.id = localStorage.getItem("steamid");
+
+    if (this.id) {
       this.props.dispatch({
         type: 'fetch_steam_profile',
-        id
+        id : this.id
       });
     }
   }
@@ -24,7 +25,7 @@ class App extends Component {
   render() {
     return (<div className="App">
       {!this.props.profile ?
-        <SteamId dispatch={this.props.dispatch}/> :
+        this.id ? null : <SteamId dispatch={this.props.dispatch}/> :
         <div>
           <Friends
             dispatch={this.props.dispatch}
